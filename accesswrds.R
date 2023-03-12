@@ -1,7 +1,6 @@
 library(RPostgres)
-library(data.table)
-library(dplyr)
-library(psych)
+
+##connect wrds
 wrds <- dbConnect(Postgres(),
                  host='wrds-pgdata.wharton.upenn.edu',
                  port=9737,
@@ -9,6 +8,13 @@ wrds <- dbConnect(Postgres(),
                  sslmode='require',
                  user="mqjhan",
                  password="mqjhan@PhDclass")
+##get schema names from wrds
+res <- dbSendQuery(wrds, "select distinct table_schema
+                   from information_schema.tables
+                   order by table_schema")
+schemas <- dbFetch(res, n=-1)
+schemas
+dbClearResult(res)
 
 ####get table names form compustat
 res <- dbSendQuery(wrds, "select table_name
