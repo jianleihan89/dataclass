@@ -1,7 +1,6 @@
 install.packages("bibliometrix")
 library(bibliometrix)
 library(igraph)
-setwd("D:/Dropbox/AFIN8014")
 csrbib=convert2df("csr.bib", dbsource = "wos", format = "bibtex")
 D=metaTagExtraction(csrbib, Field = "CR_AU", sep = ";")
 results <- biblioAnalysis(csrbib, sep = ";")
